@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tlias智能学习辅助系统</title>
+    <style>
+        /* 清除浏览器默认的内外边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 顶部导航栏样式 */
+        .navbar {
+            /* 需求3：设置灰色的背景色 */
+            background-color: #d3d3d3; 
+            /* 使用 Flexbox 布局，让子元素横向排列 */
+            display: flex;  /* 声明使用flex弹性布局 默认为row：水平布局 */
+            /* flex-direction: row;  设置水平布局 */
+            /* flex-direction: column;  设置垂直布局 */
+
+            /* 两端对齐：左边一个，右边一个 */
+            justify-content: space-between;
+            
+            /* flex-start: 从头开始排列 */
+            /* flex-end: 从尾部开始排列 */
+            /* center: 在主轴上居中对齐 */
+            /* space-around: 平分剩余空间 */
+            /* space-between: 先两边贴边，再平分剩余空间 */
+            /* 垂直居中 */
+            align-items: center;
+            /* 添加内边距，让内容不要贴着边缘 */
+            padding: 15px 30px;
+            /* 设置高度，使其更美观 */
+            height: 70px;
+        }
+
+        /* 标题样式 */
+        .navbar .title {
+            /* 需求1：加粗加粗展示 */
+            font-weight: bold;
+            font-size: 24px;
+            color: #333;
+            /* 可以适当加一点字间距 */
+            letter-spacing: 1px;
+
+            /* 设置字体 */
+            font-family: "楷体";
+        }
+
+        /* 退出登录超链接样式 */
+        .navbar .logout-link {
+            /* 去除超链接下划线 */
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            /* 鼠标悬浮时变色，提升用户体验 */
+            transition: color 0.3s;
+        }
+
+        /* 鼠标移入超链接时变蓝 */
+        .navbar .logout-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏部分 -->
+    <div class="navbar">
+        <!-- 需求1：标题 -->
+        <div class="title">Tlias智能学习辅助系统</div>
+        
+        <!-- 需求1：退出登录超链接 -->
+        <a href="#" class="logout-link">退出登录</a>
+    </div>
+
+    <!-- 这里可以继续添加第二、三、四个部分的代码 -->
+
+</body>
+</html>

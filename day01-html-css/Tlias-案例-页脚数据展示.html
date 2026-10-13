@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tlias智能学习辅助系统</title>
+    <style>
+        /* 清除浏览器默认的内外边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #context-container {
+            /* 宽度占整体70% */
+            width: 80%;
+            /* 两个参数 上边下边 | 左边右边 */
+            margin: 0 auto;
+        }
+
+        /* 顶部导航栏样式 */
+        .navbar {
+            /* 需求3：设置灰色的背景色 */
+            background-color: #d3d3d3;
+            /* 使用 Flexbox 布局，让子元素横向排列 */
+            display: flex;
+            /* 声明使用flex弹性布局 默认为row：水平布局 */
+            /* flex-direction: row;  设置水平布局 */
+            /* flex-direction: column;  设置垂直布局 */
+
+            /* 两端对齐：左边一个，右边一个 */
+            justify-content: space-between;
+
+            /* flex-start: 从头开始排列 */
+            /* flex-end: 从尾部开始排列 */
+            /* center: 在主轴上居中对齐 */
+            /* space-around: 平分剩余空间 */
+            /* space-between: 先两边贴边，再平分剩余空间 */
+            /* 垂直居中 */
+            align-items: center;
+            /* 添加内边距，让内容不要贴着边缘 */
+            padding: 15px 30px;
+            /* 设置高度，使其更美观 */
+            height: 70px;
+        }
+
+        /* 标题样式 */
+        .navbar .title {
+            /* 需求1：加粗加粗展示 */
+            font-weight: bold;
+            font-size: 24px;
+            color: #333;
+            /* 可以适当加一点字间距 */
+            letter-spacing: 1px;
+
+            /* 设置字体 */
+            font-family: "楷体";
+        }
+
+        /* 退出登录超链接样式 */
+        .navbar .logout-link {
+            /* 去除超链接下划线 */
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            /* 鼠标悬浮时变色，提升用户体验 */
+            transition: color 0.3s;
+        }
+
+        /* 鼠标移入超链接时变蓝 */
+        .navbar .logout-link:hover {
+            color: #007bff;
+        }
+
+        /* ---------- 第二部分：搜索表单区域 ---------- */
+        /* 使用白色的卡片容器包裹，让它更有层次感 */
+        .search-container {
+            background-color: #ffffff;
+            margin: 20px 30px;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-form {
+            /* 需求2：所有项及按钮水平排列于一行 */
+            display: flex;
+            align-items: center;
+            /* 垂直居中 */
+            gap: 20px;
+            /* 各项之间的间距 */
+            flex-wrap: wrap;
+            /* 屏幕过窄时允许换行，防止挤压 */
+        }
+
+        /* 表单项标签和输入框的组合 */
+        .form-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-item label {
+            margin-right: 8px;
+            white-space: nowrap;
+            /* 防止“姓名：”被换行 */
+
+            /* white-space 属性可以被指定为从下面的值列表中选择的单个关键字，或者是表示 white-space-collapse 和 text-wrap 属性的简写的两个值。
+            normal
+            连续的空白符会被合并。源码中的换行符会被当作空白符来处理。并根据填充行框盒子的需要来换行。
+            nowrap
+            和 normal 一样合并空白符，但阻止源码中的文本换行。
+            pre
+            连续的空白符会被保留。仅在遇到换行符或 <br> 元素时才会换行。
+            pre-wrap
+            连续的空白符会被保留。在遇到换行符或 <br> 元素时，或者根据填充行框盒子的需要换行。
+            pre-line
+            连续的空白符会被合并。在遇到换行符或 <br> 元素时，或者根据填充行框盒子的需要换行。 */
+        }
+
+        /* 统一输入框和下拉框的样式 */
+        /* .form-item input[type="text"],
+        .form-item select  表示选取.form-item类中的输入框和下拉框 */
+        .form-item input[type="text"],
+        .form-item select {
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+            transition: border-color 0.3s;
+            width: 160px;
+            /* 给一个合适的宽度 */
+            background-color: #fff;
+        }
+
+        /* 输入框获得焦点时的边框颜色（美观细节） */
+        .form-item input[type="text"]:focus,
+        .form-item select:focus {
+            border-color: #007bff;
+        }
+
+        /* 按钮通用样式 */
+        .btn {
+            height: 36px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* “查询”按钮 - 主色调 */
+        .btn-query {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-query:hover {
+            background-color: #0056b3;
+        }
+
+        /* “清空”按钮 - 次要色调 */
+        .btn-clear {
+            background-color: #f4f4f5;
+            color: #606266;
+            border: 1px solid #dcdfe6;
+        }
+
+        .btn-clear:hover {
+            background-color: #e9e9eb;
+            color: #007bff;
+        }
+
+        /* ---------- 第三部分：表格展示区 ---------- */
+        /* 表格整体样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            /* 合并边框 */
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+            /* 默认居中 */
+        }
+
+        /* 表头样式 */
+        .data-table th {
+            background-color: #f8f9fa;
+            padding: 15px 10px;
+            font-weight: bold;
+            color: #555;
+            border-bottom: 2px solid #ebeef5;
+            white-space: nowrap;
+        }
+
+        /* 表格数据行样式 */
+        .data-table td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #ebeef5;
+            vertical-align: middle;
+            /* 内容垂直居中 */
+        }
+
+        /* 斑马纹与鼠标悬浮效果 */
+        .data-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* 头像样式 */
+        .avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* 圆形头像 */
+            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 操作按钮样式 */
+        .btn-action {
+            padding: 5px 12px;
+            font-size: 13px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 4px;
+        }
+
+        .btn-edit {
+            background-color: #e6f0ff;
+            color: #007bff;
+        }
+
+        .btn-edit:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #ffe6e6;
+            color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        /* ---------- 第四部分：页脚版权区域 ---------- */
+        .footer {
+            /* 需求2：灰色背景 */
+            background-color: #555;
+            /* 需求2：字体颜色为白色 */
+            color: #ffffff;
+            /* 需求2：居中对齐 */
+            text-align: center;
+            /* 增加内边距和行高，使排版更透气 */
+            padding: 25px 0;
+            line-height: 1.8;
+            /* 与上方内容拉开距离 */
+            margin-top: 40px;
+        }
+
+        .footer .company-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+            /* 稍微加一点字间距，显得更专业 */
+            letter-spacing: 1px;
+        }
+
+        .footer .copyright-info {
+            font-size: 12px;
+            color: #cccccc;
+            /* 版权行颜色稍微浅一点，体现视觉层次感 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="context-container">
+        <!-- 顶部导航栏部分 -->
+        <div class="navbar">
+            <!-- 需求1：标题 -->
+            <div class="title">Tlias智能学习辅助系统</div>
+
+            <!-- 需求1：退出登录超链接 -->
+            <a href="#" class="logout-link">退出登录</a>
+        </div>
+
+        <!-- 这里可以继续添加第二、三、四个部分的代码 -->
+        <div class="search-container">
+            <form class="search-form" id="searchForm" action="/seacrh" method="post"
+                onsubmit="event.preventDefault(); alert('执行查询操作！');">
+
+                <!-- 1.1 表单项：姓名 -->
+                <div class="form-item">
+                    <!-- for表示与下面的值相同的name进行绑定 -->
+                    <label for="name">姓名：</label>
+                    <input type="text" id="name" name="name" placeholder="请输入姓名">
+                </div>
+
+                <!-- 1.1 表单项：性别 -->
+                <div class="form-item">
+                    <label for="gender">性别：</label>
+                    <select id="gender" name="gender">
+                        <option value="">请选择</option> <!-- 默认空 -->
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+
+                <!-- 1.1 表单项：职位 -->
+                <div class="form-item">
+                    <label for="position">职位：</label>
+                    <select id="position" name="position">
+                        <option value="">请选择</option> <!-- 默认空 -->
+                        <option value="班主任">班主任</option>
+                        <option value="讲师">讲师</option>
+                        <option value="学工主管">学工主管</option>
+                        <option value="教研主管">教研主管</option>
+                        <option value="咨询师">咨询师</option>
+                    </select>
+                </div>
+
+                <!-- 1.2 两个按钮 -->
+                <div class="form-item">
+                    <button type="submit" class="btn btn-query">查询</button>
+                    <button type="reset" class="btn btn-clear" style="margin-left: 10px;">清空</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- 第三部分：表格展示区 -->
+        <div class="card-container">
+            <!-- table定义表格 -->
+            <table class="data-table">
+                <!-- thead定义表头 -->
+                <thead>
+                    <!-- tr定义每一行的内容 -->
+                    <tr>
+                        <!-- th用来定义表头单元格 -->
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>头像</th>
+                        <th>职位</th>
+                        <th>入职日期</th>
+                        <th>最后操作时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <!-- tbody定义表格主题内容 -->
+                <tbody>
+                    <!-- 测试数据 1：令狐冲 -->
+                    <tr>
+                        <!-- td用来定义普通单元格 -->
+                        <td>令狐冲</td>
+                        <td>男</td>
+                        <td><img src="https://i.pravatar.cc/100?u=ling" alt="令狐冲" class="avatar-img"></td>
+                        <td>讲师</td>
+                        <td>2023-09-01</td>
+                        <td>2024-05-20 10:30:00</td>
+                        <td>
+                            <button class="btn-action btn-edit" onclick="alert('编辑令狐冲')">编辑</button>
+                            <button class="btn-action btn-delete"
+                                onclick="if(confirm('确认删除令狐冲吗？')) alert('已删除')">删除</button>
+                        </td>
+                    </tr>
+
+                    <!-- 测试数据 2：任盈盈 -->
+                    <tr>
+                        <td>任盈盈</td>
+                        <td>女</td>
+                        <td><img src="https://i.pravatar.cc/100?u=ren" alt="任盈盈" class="avatar-img"></td>
+                        <td>学工主管</td>
+                        <td>2022-03-15</td>
+                        <td>2024-05-21 14:20:00</td>
+                        <td>
+                            <button class="btn-action btn-edit" onclick="alert('编辑任盈盈')">编辑</button>
+                            <button class="btn-action btn-delete"
+                                onclick="if(confirm('确认删除任盈盈吗？')) alert('已删除')">删除</button>
+                        </td>
+                    </tr>
+
+                    <!-- 测试数据 3：岳不群 -->
+                    <tr>
+                        <td>岳不群</td>
+                        <td>男</td>
+                        <td><img src="https://i.pravatar.cc/100?u=yue" alt="岳不群" class="avatar-img"></td>
+                        <td>教研主管</td>
+                        <td>2021-07-10</td>
+                        <td>2024-05-22 09:15:00</td>
+                        <td>
+                            <button class="btn-action btn-edit" onclick="alert('编辑岳不群')">编辑</button>
+                            <button class="btn-action btn-delete"
+                                onclick="if(confirm('确认删除岳不群吗？')) alert('已删除')">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 第四部分：页脚版权区域 -->
+        <footer class="footer">
+            <div class="company-name">JavaWeb自主学习</div>
+            <div class="copyright-info">页脚部分学习</div>
+        </footer>
+
+
+    </div>
+
+</body>
+
+</html>

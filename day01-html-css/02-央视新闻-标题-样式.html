@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 方式二 ：定义一个span标签 
+        对当前内面生效
+        -->
+    <style>
+        span{
+            /* 定义颜色的三种方式 */
+            /* 方式一：关键字 */
+            /* color: gray; */
+
+            /* 方式二：RGB表示法 */
+            /* color: rgb(red green blue); */
+            /* 三个参数代表颜色程度，ff最大，00最小 */
+            /* color: rgb(ff 00 00); */
+
+            /* 方式三：RGBA表示法 */
+            /* color: rgba(red, green, blue, alpha); */
+            /* 最后一个参数表示不透明度， 1 最大：完全不透明， 0 最小：完全透明 */
+            /* color: rgba(ff, 00, 00, 0.5); */
+
+            /* 方式四：十六进制表示法,每两位分别表示红绿蓝，两个相同可以简写为一个 */
+            /* color: #f00;  等效于color: #ff0000; */
+            color: #999999;
+
+        }
+    </style>
+
+    <!-- 方式三：外部样式 -->
+     <!-- <link rel="stylesheet" href="css/news.css"> -->
+
+
+    <title>上新不断、捷报频传 本周中国“硬核”成绩刷屏！</title>
+</head>
+<body>
+    <!-- 定义一个标题 -->
+    <h1>上新不断、捷报频传 本周中国“硬核”成绩刷屏！</h1>
+    <!-- a 超链接标签：
+     href：链接地址 - url地址
+     target：打开方式
+         _blank：新窗口打开
+         _self：本窗口打开(默认)
+    -->
+    <a href="https://news.cctv.com/">央视网</a> 
+    <!-- css的三种方式 -->
+
+    <!-- 方式一：行内样式 -->
+    <!-- <span style="color: gray;">2026年10月11日 06:19:48</span> -->
+
+    <!-- 方式二：内部样式 -->
+    <!-- <span>2026年10月11日 06:19:48</span> -->
+    
+    <!-- 方式三：外部样式 定义一个css文件-->
+    <span>2026年10月11日 06:19:48</span>
+
+     
+</body>
+</html>

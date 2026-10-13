@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tlias智能学习辅助系统</title>
+    <style>
+        /* 清除浏览器默认的内外边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #context-container{
+            /* 宽度占整体70% */
+            width: 80%;
+            /* 两个参数 上边下边 | 左边右边 */
+            margin: 0 auto;
+        }
+
+        /* 顶部导航栏样式 */
+        .navbar {
+            /* 需求3：设置灰色的背景色 */
+            background-color: #d3d3d3; 
+            /* 使用 Flexbox 布局，让子元素横向排列 */
+            display: flex;  /* 声明使用flex弹性布局 默认为row：水平布局 */
+            /* flex-direction: row;  设置水平布局 */
+            /* flex-direction: column;  设置垂直布局 */
+
+            /* 两端对齐：左边一个，右边一个 */
+            justify-content: space-between;
+            
+            /* flex-start: 从头开始排列 */
+            /* flex-end: 从尾部开始排列 */
+            /* center: 在主轴上居中对齐 */
+            /* space-around: 平分剩余空间 */
+            /* space-between: 先两边贴边，再平分剩余空间 */
+            /* 垂直居中 */
+            align-items: center;
+            /* 添加内边距，让内容不要贴着边缘 */
+            padding: 15px 30px;
+            /* 设置高度，使其更美观 */
+            height: 70px;
+        }
+
+        /* 标题样式 */
+        .navbar .title {
+            /* 需求1：加粗加粗展示 */
+            font-weight: bold;
+            font-size: 24px;
+            color: #333;
+            /* 可以适当加一点字间距 */
+            letter-spacing: 1px;
+
+            /* 设置字体 */
+            font-family: "楷体";
+        }
+
+        /* 退出登录超链接样式 */
+        .navbar .logout-link {
+            /* 去除超链接下划线 */
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            /* 鼠标悬浮时变色，提升用户体验 */
+            transition: color 0.3s;
+        }
+
+        /* 鼠标移入超链接时变蓝 */
+        .navbar .logout-link:hover {
+            color: #007bff;
+        }
+
+         /* ---------- 第二部分：搜索表单区域 ---------- */
+        /* 使用白色的卡片容器包裹，让它更有层次感 */
+        .search-container {
+            background-color: #ffffff;
+            margin: 20px 30px;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-form {
+            /* 需求2：所有项及按钮水平排列于一行 */
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            gap: 20px;           /* 各项之间的间距 */
+            flex-wrap: wrap;     /* 屏幕过窄时允许换行，防止挤压 */
+        }
+
+        /* 表单项标签和输入框的组合 */
+        .form-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-item label {
+            margin-right: 8px;
+            white-space: nowrap; /* 防止“姓名：”被换行 */
+
+            /* white-space 属性可以被指定为从下面的值列表中选择的单个关键字，或者是表示 white-space-collapse 和 text-wrap 属性的简写的两个值。
+            normal
+            连续的空白符会被合并。源码中的换行符会被当作空白符来处理。并根据填充行框盒子的需要来换行。
+            nowrap
+            和 normal 一样合并空白符，但阻止源码中的文本换行。
+            pre
+            连续的空白符会被保留。仅在遇到换行符或 <br> 元素时才会换行。
+            pre-wrap
+            连续的空白符会被保留。在遇到换行符或 <br> 元素时，或者根据填充行框盒子的需要换行。
+            pre-line
+            连续的空白符会被合并。在遇到换行符或 <br> 元素时，或者根据填充行框盒子的需要换行。 */
+        }
+
+        /* 统一输入框和下拉框的样式 */
+        /* .form-item input[type="text"],
+        .form-item select  表示选取.form-item类中的输入框和下拉框 */
+        .form-item input[type="text"],
+        .form-item select {
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+            transition: border-color 0.3s;
+            width: 160px; /* 给一个合适的宽度 */
+            background-color: #fff;
+        }
+
+        /* 输入框获得焦点时的边框颜色（美观细节） */
+        .form-item input[type="text"]:focus,
+        .form-item select:focus {
+            border-color: #007bff;
+        }
+
+        /* 按钮通用样式 */
+        .btn {
+            height: 36px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* “查询”按钮 - 主色调 */
+        .btn-query {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-query:hover {
+            background-color: #0056b3;
+        }
+
+        /* “清空”按钮 - 次要色调 */
+        .btn-clear {
+            background-color: #f4f4f5;
+            color: #606266;
+            border: 1px solid #dcdfe6;
+        }
+        .btn-clear:hover {
+            background-color: #e9e9eb;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="context-container">
+        <!-- 顶部导航栏部分 -->
+    <div class="navbar">
+        <!-- 需求1：标题 -->
+        <div class="title">Tlias智能学习辅助系统</div>
+        
+        <!-- 需求1：退出登录超链接 -->
+        <a href="#" class="logout-link" >退出登录</a>
+    </div>
+
+    <!-- 这里可以继续添加第二、三、四个部分的代码 -->
+     <div class="search-container">
+        <form class="search-form" id="searchForm" action="/seacrh" method="post" onsubmit="event.preventDefault(); alert('执行查询操作！');">
+            
+            <!-- 1.1 表单项：姓名 -->
+            <div class="form-item">
+                <!-- for表示与下面的值相同的name进行绑定 -->
+                <label for="name">姓名：</label>
+                <input type="text" id="name" name="name" placeholder="请输入姓名">
+            </div>
+
+            <!-- 1.1 表单项：性别 -->
+            <div class="form-item">
+                <label for="gender">性别：</label>
+                <select id="gender" name="gender">
+                    <option value="">请选择</option> <!-- 默认空 -->
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+
+            <!-- 1.1 表单项：职位 -->
+            <div class="form-item">
+                <label for="position">职位：</label>
+                <select id="position" name="position">
+                    <option value="">请选择</option> <!-- 默认空 -->
+                    <option value="班主任">班主任</option>
+                    <option value="讲师">讲师</option>
+                    <option value="学工主管">学工主管</option>
+                    <option value="教研主管">教研主管</option>
+                    <option value="咨询师">咨询师</option>
+                </select>
+            </div>
+
+            <!-- 1.2 两个按钮 -->
+            <div class="form-item">
+                <button type="submit" class="btn btn-query">查询</button>
+                <button type="reset" class="btn btn-clear" style="margin-left: 10px;">清空</button>
+            </div>
+
+        </form>
+    </div>
+    </div>
+
+</body>
+</html>
