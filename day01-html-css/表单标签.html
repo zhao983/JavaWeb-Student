@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>表单标签</title>
 </head>
+
 <body>
     <!-- form表单：
      action：表单数据提交的url地址
@@ -14,61 +16,70 @@
         如果表单中包含了隐私数据，get方式并不安全，不推荐使用该方式。
         在浏览器中get请求的大小是有限制的，不适合提交大数据量的表单。
 
-        post：表单数据会在消息体/请求体中提交到服务器
-        特点：
-        安全。
-        请求大小没有限制
+        POST 请求：
+        1. 表单数据通常放在请求体中提交。
+        2. 适合提交新增、修改等操作的数据。
+        3. POST 本身不提供加密，敏感数据应使用 HTTPS。
+        4. 请求体大小可能受到服务器配置限制。
 
      注意：表单项要想能够采集数据，必须得设置name属性，表示当前表单项的名字
     -->
-     <form action="/save" method="post">
+    <form action="/save" method="post">
         姓名 <input type="text" name="name">
         密码<input type="password" name="password">
         <br><br>
-        
+
         <!-- input 单选：radio -->
         <!-- 属于同一组的radio的name应该保持一致 -->
-        性别 <label><input type="radio" name="gender">男</label>  <!-- 使用lable将文本与单选按钮关联，这样点击文本也可以选中按钮 -->
-        <label><input type="radio" name="gender">女</label>  <br><br>
-        
+        <!-- 性别 <label><input type="radio" name="gender">男</label>  使用lable将文本与单选按钮关联，这样点击文本也可以选中按钮 -->
+        <!-- <label><input type="radio" name="gender">女</label>  <br><br> -->
+        <!-- 如果不指定 value，浏览器默认提交的值是 on。因此，无论选择男还是女，提交结果都是 gender=on。 -->
+        <label>
+            <input type="radio" name="gender" value="男">男
+        </label>
+        <label>
+            <input type="radio" name="gender" value="女">女
+        </label>
+
         <!-- input 多选：checkbox                 value是表单提交的值 -->
-         爱好 <label><input type="checkbox" name="hobby" value="打球"> 打球</label>
+        爱好 <label><input type="checkbox" name="hobby" value="打球"> 打球</label>
         <label><input type="checkbox" name="hobby" value="上网"> 上网</label>
         <label><input type="checkbox" name="hobby" value="看电影"> 看电影</label>
         <br><br>
 
         <!-- input 进行图像上传：file -->
-         图像：<input type="file" name="img"> <br><br>
+        图像：<input type="file" name="img"> <br><br>
 
-         <!-- input 时间：data：设置 年月日  time：设置 时分秒 datatime-local：设置 年月日时分秒 -->
-        生日 <input type="date" name="birthday">   <br><br>
-        时间 <input type="time" name="time">  <br><br>
+        <!-- input 时间：data：设置 年月日  time：设置 时分秒 datatime-local：设置 年月日时分秒 -->
+        生日 <input type="date" name="birthday"> <br><br>
+        时间 <input type="time" name="time"> <br><br>
         日期时间 <input type="datetime-local" name="datetime"> <br><br>
 
         <!-- 定义下拉列表：select -->
-         学历：
-         <select name="degree">
+        学历：
+        <select name="degree">
             <!-- 定义下拉列表标签：option -->
-             <option value="">请选择</option>
-             <option value="1">小学</option>
-             <option value="2">初中</option>
-             <option value="3">高中</option>
-             <option value="4">大学</option>
-         </select>  <br><br>
+            <option value="">请选择</option>
+            <option value="1">小学</option>
+            <option value="2">初中</option>
+            <option value="3">高中</option>
+            <option value="4">大学</option>
+        </select> <br><br>
 
-         <!-- 定义文本域(大文本框)： -->
-         描述：                       <!-- cols表示一行能输入多少个字符  rows表示能输入多少行 -->
-         <textarea name="description" cols="30" rows="10"></textarea>
-         <br><br>
+        <!-- 定义文本域(大文本框)： -->
+        描述： <!-- cols表示一行能输入多少个字符  rows表示能输入多少行 -->
+        <textarea name="description" cols="30" rows="10"></textarea>
+        <br><br>
 
-         <!-- 定义隐藏域：hidden  正常网页看不到，但在提交的时候也会一起提交上去 -->
-         <input type="hidden" name="id" value="1"> 
+        <!-- 定义隐藏域：hidden  正常网页看不到，但在提交的时候也会一起提交上去 -->
+        <input type="hidden" name="id" value="1">
 
-         <!-- 表单常见按钮 -->
-        <input type="submit" value="提交"> 
+        <!-- 表单常见按钮 -->
+        <input type="submit" value="提交">
         <input type="reset" value="重置">
         <input type="button" value="按钮">
-        
+
     </form>
 </body>
+
 </html>
