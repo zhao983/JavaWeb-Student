@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js常见事件</title>
+
+    <style>
+
+        .data-table th {
+            background-color: #f8f9fa;
+            padding: 15px 10px;
+            font-weight: bold;
+            color: #555;
+            border-bottom: 2px solid #ebeef5;
+            white-space: nowrap;
+        }
+
+
+        .data-table td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #162852;
+            vertical-align: middle;
+            /* 内容垂直居中 */
+        }
+    </style>
+</head>
+
+<body>
+<form action="" style="text-align: center;">
+    name:<input type="text" name="username" id="username">
+    age:<input type="text" name="age" id="age">
+    <input id="b1" type="submit" value="提交">
+    <input id="b2" type="button" value="单击事件">
+
+
+</form>
+<br><br><br>
+
+<div class="card-container">
+    <table class="data-table" width="800px" border="1" cellspacing="0" align="center">
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>分数</th>
+            <th>评语</th>
+        </tr>
+        <tr align="center">
+            <td>001</td>
+            <td>张三</td>
+            <td>90</td>
+            <td>很优秀</td>
+        </tr>
+        <tr align="center" id="last">
+            <td>002</td>
+            <td>李四</td>
+            <td>92</td>
+            <td>优秀</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    //click鼠标点击事件
+    document.querySelector('#b2').addEventListener('click', () => {
+        console.log('触发了点击事件');
+
+    });
+
+    //mouseenter鼠标移入
+    document.querySelector('#last').addEventListener('mouseenter', function () {
+        this.style.backgroundColor = '#b0c9ed';
+    })
+
+    //mouseleave鼠标移除
+    document.querySelector('#last').addEventListener('mouseleave', function () {
+        this.style.backgroundColor = '#fff';
+    })
+
+    //keydown某个按键被按下
+    document.querySelector('#username').addEventListener('keydown', function () {
+        console.log('按键按下');
+    })
+
+    //keyup某个按键被抬起
+    document.querySelector('#username').addEventListener('keyup', function () {
+        console.log('按键抬起');
+    })
+
+    //blur失去焦点
+    document.querySelector('#age').addEventListener('blur', function () {
+        console.log('失去焦点');
+    })
+
+    //focus获得焦点
+    document.querySelector('#age').addEventListener('focus', function () {
+        console.log('获得焦点');
+    })
+
+    //input用户输入时触发
+    document.querySelector('#age').addEventListener('input', function () {
+        console.log('用户输入了');
+    })
+
+    //submit提交表单事件 提交的为整个表单，所以对象应该为form
+    // submit 事件是绑定在 <form> 表单元素上的，而不是绑定在 <input type="submit"> 按钮上的。
+    document.querySelector('form').addEventListener('submit', function () {
+        alert('表单提交了');
+    })
+</script>
+</body>
+
+</html>

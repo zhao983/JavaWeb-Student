@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js常见事件</title>
+
+    <style>
+
+        .data-table th {
+            background-color: #f8f9fa;
+            padding: 15px 10px;
+            font-weight: bold;
+            color: #555;
+            border-bottom: 2px solid #ebeef5;
+            white-space: nowrap;
+        }
+
+
+        .data-table td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #162852;
+            vertical-align: middle;
+            /* 内容垂直居中 */
+        }
+    </style>
+</head>
+
+<body>
+<form action="" style="text-align: center;">
+    name:<input type="text" name="username" id="username">
+    age:<input type="text" name="age" id="age">
+    <input id="b1" type="submit" value="提交">
+    <input id="b2" type="button" value="单击事件">
+
+
+</form>
+<br><br><br>
+
+<div class="card-container">
+    <table class="data-table" width="800px" border="1" cellspacing="0" align="center">
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>分数</th>
+            <th>评语</th>
+        </tr>
+        <tr align="center">
+            <td>001</td>
+            <td>张三</td>
+            <td>90</td>
+            <td>很优秀</td>
+        </tr>
+        <tr align="center" id="last">
+            <td>002</td>
+            <td>李四</td>
+            <td>92</td>
+            <td>优秀</td>
+        </tr>
+    </table>
+</div>
+
+<!--如果引入的js文件是模块化的js文件（有引入其他js文件），则需要声明 type=modle-->
+<script src="js/eventDemo1.js" type="module"></script>
+
+</body>
+
+</html>

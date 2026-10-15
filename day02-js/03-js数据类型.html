@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 获取数据类型可以通过 typeof  
+        //1. 数据类型
+        alert(typeof 10); //number
+        alert(typeof 1.5); //number
+
+        alert(typeof true); //boolean
+        alert(typeof false); //boolean
+
+        alert(typeof "Hello"); //string
+        alert(typeof 'JS'); //string
+        alert(typeof `JavaScript`); //string
+
+        alert(typeof null); //null ? ->object
+
+        let a;
+        alert(typeof a); //undefined
+
+        // 2.模板字符串
+        let name = '张三';
+        let age = 18;
+        // 反引号作用：  可做字符串的拼接
+        console.log('大家好，我叫'+name+',今年'+age+'岁');
+        console.log(`大家好，我叫${name},今年${age}岁`);
+        
+    </script>
+</body>
+
+</html>

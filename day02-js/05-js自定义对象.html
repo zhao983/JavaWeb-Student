@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js自定义对象</title>
+</head>
+
+<body>
+
+    <script>
+        // 1.定义对象
+        let user = {
+            // 变量和方法中间都要用","隔开
+            name: '张三',
+            age: 18,
+            gender: '男',
+
+            sing: function () {
+                alert(this.name + "唱歌")
+            },
+
+            // : function可以省略
+            // sing(){
+            //     alert(this.name+"唱歌")
+            // }
+
+            // sing: ()=>{  //在箭头函数中 this并不指代当前对象，而是指当前对象的父级对象
+            //     alert(this.name+"唱歌")
+            // },
+        }
+
+        //2.调用对象的属性和方法
+        console.log(user.age);
+        user.sing();
+
+        // 3.JSON - Jscript对象标记法
+        let people = {
+            name: '李四',
+            age: '18',
+            gender: '男',
+        }
+        //js对象-->Json字符串
+        alert(JSON.stringify(people));
+
+        // Json中键要用 "" 括起来，值如果是字符串也要用 "" 括起来，如果是数字和Boolean可以直接写
+        // let peopleJson = '{
+        //     "name": "王五",
+        //     "age": 18,
+        //     "gender": "男",
+        // }';
+        //单引号不能直接定义多行字符串 
+        //最后一个属性后面不能有逗号  
+        //可以用 ` 来多行书写
+        let peopleJson = '{"name": "王五","age": 18,"gender": "男"}';
+        alert(JSON.parse(peopleJson).name);
+
+    </script>
+</body>
+
+</html>

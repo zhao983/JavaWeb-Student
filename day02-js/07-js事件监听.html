@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js事件监听</title>
+</head>
+<body>
+    <input type="button" id="btn1" value="按钮一">
+    <input type="button" id="btn2" value="按钮二">
+
+    <script>
+        //事件监听 (可以多次绑定同一事件)
+        document.querySelector('#btn1').addEventListener('click',()=>{
+            console.log('点击了按钮一');
+            
+        })
+        document.querySelector('#btn1').addEventListener('click',()=>{
+            console.log('点击了按钮一22');
+
+        })
+
+        //事件监听早期写法 - .onclick (如果多次绑定同一事件，后面的会覆盖前面)
+        document.querySelector('#btn2').onclick= () =>{
+            console.log('点击了按钮二');
+        }
+        document.querySelector('#btn2').onclick= () =>{
+            console.log('点击了按钮二22');
+        }
+        
+    </script>
+</body>
+</html>
