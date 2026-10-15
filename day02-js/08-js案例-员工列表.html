@@ -290,155 +290,160 @@
 
 <body>
 
-    <div id="context-container">
-        <!-- 顶部导航栏部分 -->
-        <div class="navbar">
-            <!-- 需求1：标题 -->
-            <div class="title">Tlias智能学习辅助系统</div>
+<div id="context-container">
+    <!-- 顶部导航栏部分 -->
+    <div class="navbar">
+        <!-- 需求1：标题 -->
+        <div class="title">Tlias智能学习辅助系统</div>
 
-            <!-- 需求1：退出登录超链接 -->
-            <a href="#" class="logout-link">退出登录</a>
-        </div>
-
-        <!-- 这里可以继续添加第二、三、四个部分的代码 -->
-        <div class="search-container">
-            <form class="search-form" id="searchForm" action="/seacrh" method="post"
-                onsubmit="event.preventDefault(); alert('执行查询操作！');">
-
-                <!-- 1.1 表单项：姓名 -->
-                <div class="form-item">
-                    <!-- for表示与下面的值相同的name进行绑定 -->
-                    <label for="name">姓名：</label>
-                    <input type="text" id="name" name="name" placeholder="请输入姓名">
-                </div>
-
-                <!-- 1.1 表单项：性别 -->
-                <div class="form-item">
-                    <label for="gender">性别：</label>
-                    <select id="gender" name="gender">
-                        <option value="">请选择</option> <!-- 默认空 -->
-                        <option value="男">男</option>
-                        <option value="女">女</option>
-                    </select>
-                </div>
-
-                <!-- 1.1 表单项：职位 -->
-                <div class="form-item">
-                    <label for="position">职位：</label>
-                    <select id="position" name="position">
-                        <option value="">请选择</option> <!-- 默认空 -->
-                        <option value="班主任">班主任</option>
-                        <option value="讲师">讲师</option>
-                        <option value="学工主管">学工主管</option>
-                        <option value="教研主管">教研主管</option>
-                        <option value="咨询师">咨询师</option>
-                    </select>
-                </div>
-
-                <!-- 1.2 两个按钮 -->
-                <div class="form-item">
-                    <button type="submit" class="btn btn-query">查询</button>
-                    <button type="reset" class="btn btn-clear" style="margin-left: 10px;">清空</button>
-                </div>
-
-            </form>
-        </div>
-
-        <!-- 第三部分：表格展示区 -->
-        <div class="card-container">
-            <!-- table定义表格 -->
-            <table class="data-table">
-                <!-- thead定义表头 -->
-                <thead>
-                    <!-- tr定义每一行的内容 -->
-                    <tr>
-                        <!-- th用来定义表头单元格 -->
-                        <th>姓名</th>
-                        <th>性别</th>
-                        <th>头像</th>
-                        <th>职位</th>
-                        <th>入职日期</th>
-                        <th>最后操作时间</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <!-- tbody定义表格主题内容 -->
-                <tbody>
-                    <!-- 测试数据 1：令狐冲 -->
-                    <tr>
-                        <!-- td用来定义普通单元格 -->
-                        <td>令狐冲</td>
-                        <td>男</td>
-                        <td><img src="https://i.pravatar.cc/100?u=ling" alt="令狐冲" class="avatar-img"></td>
-                        <td>讲师</td>
-                        <td>2023-09-01</td>
-                        <td>2024-05-20 10:30:00</td>
-                        <td>
-                            <button class="btn-action btn-edit" onclick="alert('编辑令狐冲')">编辑</button>
-                            <button class="btn-action btn-delete"
-                                onclick="if(confirm('确认删除令狐冲吗？')) alert('已删除')">删除</button>
-                        </td>
-                    </tr>
-
-                    <!-- 测试数据 2：任盈盈 -->
-                    <tr>
-                        <td>任盈盈</td>
-                        <td>女</td>
-                        <td><img src="https://i.pravatar.cc/100?u=ren" alt="任盈盈" class="avatar-img"></td>
-                        <td>学工主管</td>
-                        <td>2022-03-15</td>
-                        <td>2024-05-21 14:20:00</td>
-                        <td>
-                            <button class="btn-action btn-edit" onclick="alert('编辑任盈盈')">编辑</button>
-                            <button class="btn-action btn-delete"
-                                onclick="if(confirm('确认删除任盈盈吗？')) alert('已删除')">删除</button>
-                        </td>
-                    </tr>
-
-                    <!-- 测试数据 3：岳不群 -->
-                    <tr>
-                        <td>岳不群</td>
-                        <td>男</td>
-                        <td><img src="https://i.pravatar.cc/100?u=yue" alt="岳不群" class="avatar-img"></td>
-                        <td>教研主管</td>
-                        <td>2021-07-10</td>
-                        <td>2024-05-22 09:15:00</td>
-                        <td>
-                            <button class="btn-action btn-edit" onclick="alert('编辑岳不群')">编辑</button>
-                            <button class="btn-action btn-delete"
-                                onclick="if(confirm('确认删除岳不群吗？')) alert('已删除')">删除</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 第四部分：页脚版权区域 -->
-        <footer class="footer">
-            <div class="company-name">JavaWeb自主学习</div>
-            <div class="copyright-info">页脚部分学习</div>
-        </footer>
-
+        <!-- 需求1：退出登录超链接 -->
+        <a href="#" class="logout-link">退出登录</a>
     </div>
 
-    <script>
-        //1.获取所有的tr对象
-        let trs = document.querySelectorAll('tr');
-        //2.为每一个tr标签添加事件监听器
-        //鼠标移入
-        for (let i = 0; i < trs.length; i++) {
-            trs[i].addEventListener('mouseenter', function () {
-                trs[i].style.backgroundColor = '#f2e2e2';
-            })
-        }
+    <!-- 这里可以继续添加第二、三、四个部分的代码 -->
+    <div class="search-container">
+        <form class="search-form" id="searchForm" action="/seacrh" method="post"
+              onsubmit="event.preventDefault(); alert('执行查询操作！');">
 
-        //鼠标移出
-        for (let i = 0; i < trs.length; i++) {
-            trs[i].addEventListener('mouseleave', function () {
-                trs[i].style.backgroundColor = '#fff';
-            })
-        }
-    </script>
+            <!-- 1.1 表单项：姓名 -->
+            <div class="form-item">
+                <!-- for表示与下面的值相同的name进行绑定 -->
+                <label for="name">姓名：</label>
+                <input type="text" id="name" name="name" placeholder="请输入姓名">
+            </div>
+
+            <!-- 1.1 表单项：性别 -->
+            <div class="form-item">
+                <label for="gender">性别：</label>
+                <select id="gender" name="gender">
+                    <option value="">请选择</option> <!-- 默认空 -->
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+
+            <!-- 1.1 表单项：职位 -->
+            <div class="form-item">
+                <label for="position">职位：</label>
+                <select id="position" name="position">
+                    <option value="">请选择</option> <!-- 默认空 -->
+                    <option value="班主任">班主任</option>
+                    <option value="讲师">讲师</option>
+                    <option value="学工主管">学工主管</option>
+                    <option value="教研主管">教研主管</option>
+                    <option value="咨询师">咨询师</option>
+                </select>
+            </div>
+
+            <!-- 1.2 两个按钮 -->
+            <div class="form-item">
+                <button type="submit" class="btn btn-query">查询</button>
+                <button type="reset" class="btn btn-clear" style="margin-left: 10px;">清空</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- 第三部分：表格展示区 -->
+    <div class="card-container">
+        <!-- table定义表格 -->
+        <table class="data-table">
+            <!-- thead定义表头 -->
+            <thead>
+            <!-- tr定义每一行的内容 -->
+            <tr>
+                <!-- th用来定义表头单元格 -->
+                <th>姓名</th>
+                <th>性别</th>
+                <th>头像</th>
+                <th>职位</th>
+                <th>入职日期</th>
+                <th>最后操作时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <!-- tbody定义表格主题内容 -->
+            <tbody>
+            <!-- 测试数据 1：令狐冲 -->
+            <tr>
+                <!-- td用来定义普通单元格 -->
+                <td>令狐冲</td>
+                <td>男</td>
+                <td><img src="https://i.pravatar.cc/100?u=ling" alt="令狐冲" class="avatar-img"></td>
+                <td>讲师</td>
+                <td>2023-09-01</td>
+                <td>2024-05-20 10:30:00</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="alert('编辑令狐冲')">编辑</button>
+                    <button class="btn-action btn-delete"
+                            onclick="if(confirm('确认删除令狐冲吗？')) alert('已删除')">删除
+                    </button>
+                </td>
+            </tr>
+
+            <!-- 测试数据 2：任盈盈 -->
+            <tr>
+                <td>任盈盈</td>
+                <td>女</td>
+                <td><img src="https://i.pravatar.cc/100?u=ren" alt="任盈盈" class="avatar-img"></td>
+                <td>学工主管</td>
+                <td>2022-03-15</td>
+                <td>2024-05-21 14:20:00</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="alert('编辑任盈盈')">编辑</button>
+                    <button class="btn-action btn-delete"
+                            onclick="if(confirm('确认删除任盈盈吗？')) alert('已删除')">删除
+                    </button>
+                </td>
+            </tr>
+
+            <!-- 测试数据 3：岳不群 -->
+            <tr>
+                <td>岳不群</td>
+                <td>男</td>
+                <td><img src="https://i.pravatar.cc/100?u=yue" alt="岳不群" class="avatar-img"></td>
+                <td>教研主管</td>
+                <td>2021-07-10</td>
+                <td>2024-05-22 09:15:00</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="alert('编辑岳不群')">编辑</button>
+                    <button class="btn-action btn-delete"
+                            onclick="if(confirm('确认删除岳不群吗？')) alert('已删除')">删除
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 第四部分：页脚版权区域 -->
+    <footer class="footer">
+        <div class="company-name">JavaWeb自主学习</div>
+        <div class="copyright-info">页脚部分学习</div>
+    </footer>
+
+</div>
+
+<script>
+    //1.获取所有的tr对象
+    // let trs = document.querySelectorAll('tr');
+    //document.querySelectorAll('tr') 会选中所有表格行，包括表头。通常只希望数据行参与交互，可以改为
+    let trs = document.querySelectorAll('tbody tr');
+    //2.为每一个tr标签添加事件监听器
+    //鼠标移入
+    for (let i = 0; i < trs.length; i++) {
+        trs[i].addEventListener('mouseenter', function () {
+            trs[i].style.backgroundColor = '#f2e2e2';
+        })
+    }
+
+    //鼠标移出
+    for (let i = 0; i < trs.length; i++) {
+        trs[i].addEventListener('mouseleave', function () {
+            trs[i].style.backgroundColor = '#fff';
+        })
+    }
+</script>
 
 </body>
 

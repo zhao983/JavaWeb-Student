@@ -26,7 +26,7 @@
             //     alert(this.name+"唱歌")
             // }
 
-            // sing: ()=>{  //在箭头函数中 this并不指代当前对象，而是指当前对象的父级对象
+            // sing: ()=>{  //在箭头函数中 this并不指代当前对象，箭头函数没有自己的 this，它会从定义时所在的外层词法作用域继承 this。 并不是简单指向当前对象的父对象。
             //     alert(this.name+"唱歌")
             // },
         }
@@ -35,7 +35,7 @@
         console.log(user.age);
         user.sing();
 
-        // 3.JSON - Jscript对象标记法
+        // 3.JSON - Jscript对象  标记法
         let people = {
             name: '李四',
             age: '18',
