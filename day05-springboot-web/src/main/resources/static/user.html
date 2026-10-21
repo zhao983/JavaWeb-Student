@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户列表 - Vue3 + Axios</title>
+
+    <!-- 引入 Vue 3 和 Axios -->
+    <!--<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+    <!--CDN 源访问不稳定
+    unpkg.com 在国内网络环境下有时不太稳定，容易导致资源加载失败。脚本没加载进来，Vue 自然就未定义，页面也就无法渲染。-->
+    <!-- 引入 Vue 3 -->
+    <script src="https://cdn.staticfile.net/vue/3.0.5/vue.global.js"></script>
+    <!-- 引入 Axios -->
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 40px;
+        }
+
+        /* 卡片容器 */
+        .card-container {
+            background-color: #ffffff;
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 顶部标题栏 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ebeef5;
+        }
+        .header h2 {
+            color: #333;
+            font-size: 20px;
+        }
+        .btn-refresh {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-refresh:hover {
+            background-color: #0056b3;
+        }
+
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+        }
+        .data-table th {
+            background-color: #f8f9fa;
+            padding: 15px 10px;
+            font-weight: bold;
+            color: #555;
+            border-bottom: 2px solid #ebeef5;
+            white-space: nowrap;
+        }
+        .data-table td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #ebeef5;
+            vertical-align: middle;
+        }
+
+        /* 斑马纹与悬浮效果 */
+        .data-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        .data-table tbody tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* 状态提示 */
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="card-container">
+        <!-- 头部 -->
+        <div class="header">
+            <h2>用户信息列表</h2>
+            <button class="btn-refresh" @click="fetchData">刷新数据</button>
+        </div>
+
+        <!-- 加载中提示 -->
+        <div v-if="loading" class="loading">数据加载中，请稍候...</div>
+
+        <!-- 数据表格 -->
+        <table class="data-table" v-else>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <!-- 密码通常不展示，这里隐藏或者用*代替 -->
+                <th>密码</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>更新时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 使用 v-for 遍历后端返回的列表 -->
+            <tr v-for="(user, index) in userList" :key="user.id">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>******</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.age }}</td>
+                <!-- 处理后端返回的时间格式，把 T 替换成空格 -->
+                <td>{{ formatTime(user.updata) }}</td>
+            </tr>
+            <!-- 如果数据为空 -->
+            <tr v-if="userList.length === 0">
+                <td colspan="6" style="text-align: center; color: #999;">暂无数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const { createApp, ref, onMounted } = Vue;
+
+    createApp({
+        setup() {
+            // 定义响应式数据
+            const userList = ref([]);
+            const loading = ref(true);
+
+            // 获取数据的方法
+            const fetchData = () => {
+                loading.value = true;
+                // 请求后端的 /list 接口
+                axios.get('http://localhost:8080/list')
+                    .then(response => {
+                        // Spring Boot 返回的就是一个数组，直接赋值
+                        userList.value = response.data;
+                        console.log("获取到的数据：", response.data);
+                    })
+                    .catch(error => {
+                        console.error("请求失败：", error);
+                        alert("数据加载失败，请检查后端是否启动！");
+                    })
+                    .finally(() => {
+                        loading.value = false;
+                    });
+            };
+
+            // 格式化时间 (把 2024-05-20T10:30:00 变成 2024-05-20 10:30:00)
+            const formatTime = (timeStr) => {
+                if (!timeStr) return '';
+                return timeStr.replace('T', ' ');
+            };
+
+            // 页面加载完成后自动调用一次
+            onMounted(() => {
+                fetchData();
+            });
+
+            // 返回给模板使用
+            return {
+                userList,
+                loading,
+                fetchData,
+                formatTime
+            };
+        }
+    }).mount('#app');
+</script>
+
+</body>
+</html>
