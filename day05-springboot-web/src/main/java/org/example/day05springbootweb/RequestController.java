@@ -14,7 +14,7 @@ public class RequestController {
         System.out.println("请求方式:"+methon);
 
         //2.获得url地址
-        String url = request.getRequestURI();
+        String url = String.valueOf(request.getRequestURL());
         System.out.println("url地址:"+url);  //http://localhost:8080/request
 
         String uri = request.getRequestURI();
